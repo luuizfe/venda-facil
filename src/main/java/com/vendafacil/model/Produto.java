@@ -37,7 +37,5 @@ public class Produto {
     private Integer estoque;
 
     // Caminho da imagem principal do produto
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ImagemProduto> imagens = new ArrayList<>();
 
 }
