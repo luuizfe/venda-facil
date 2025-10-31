@@ -1,0 +1,100 @@
+/* Reset básico */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #fff;
+    color: #000;
+}
+
+/* Header, Navbar e Footer */
+.header, .navbar, .footer {
+    background-color: #f2d3da; /* rosa claro */
+    color: #000;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Container */
+.container {
+    padding: 1rem;
+}
+
+/* Cards de Produtos */
+.produto-card {
+    background-color: #fff;
+    border: 2px solid #f2d3da;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botões */
+.btn-add, .btn-add-cart, .btn-excluir {
+    background-color: #FFD700; /* dourado */
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-add:hover, .btn-add-cart:hover, .btn-excluir:hover {
+    opacity: 0.8;
+}
+
+/* Tabela */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #f2d3da;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+/* Tabela responsiva */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Inputs numéricos */
+input[type=number] {
+    width: 100%;
+    max-width: 60px; /* ainda respeita telas pequenas */
+}
+
+/* Carrinho / Resumo itens */
+.carrinho-item, .resumo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.carrinho-item button, .resumo-item button {
+    margin-left: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+/* Ajuste geral mobile */
+@media (max-width: 576px) {
+    .produto-card {
+        padding: 0.8rem;
+    }
+    .btn-add, .btn-add-cart, .btn-excluir {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    input[type=number] {
+        max-width: 50px;
+    }
+}
