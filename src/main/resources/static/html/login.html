@@ -7,22 +7,24 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/login.css">
 </head>
-<body class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+<body>
 
-<div class="login-card p-4 rounded shadow-sm" style="max-width: 350px; width: 100%; background-color:#f2d3da;">
-    <h3 class="mb-3 text-center">Backoffice Login</h3>
-    <form id="loginForm">
-        <div class="mb-3">
-            <label for="email" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="email" required>
-        </div>
-        <div class="mb-3">
-            <label for="senha" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="senha" required>
-        </div>
-        <button type="submit" class="btn btn-add-cart w-100">Entrar</button>
-    </form>
-    <p id="erroLogin" class="text-danger mt-2 d-none">E-mail ou senha incorretos!</p>
+<div class="login-wrapper d-flex flex-column justify-content-center align-items-center">
+    <div class="login-card p-5 rounded shadow-lg">
+        <h2 class="mb-4 text-center">Backoffice Login</h2>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
+            </div>
+            <div class="mb-4">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" placeholder="********" required>
+            </div>
+            <button type="submit" class="btn btn-login w-100">Entrar</button>
+        </form>
+        <p id="erroLogin" class="text-danger mt-3 d-none text-center">E-mail ou senha incorretos!</p>
+    </div>
 </div>
 
 <script src="../js/login.js"></script>

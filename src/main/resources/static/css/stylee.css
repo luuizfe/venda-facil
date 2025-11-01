@@ -28,17 +28,25 @@ body {
 
 /* ===== NAVBAR ===== */
 .navbar {
-    background-color: var(--rosa-claro) !important;
+    background-color: var(--rosa-claro);
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     padding: 0.75rem 1rem;
 }
-
 
 .navbar-brand {
     font-weight: 600;
     color: var(--texto-principal);
     letter-spacing: 0.5px;
+    text-align: center;
+    position: relative; /* REMOVA absolute */
 }
+
+
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
 
 /* ===== BOTÕES ===== */
 .btn-add-cart {
@@ -57,6 +65,7 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
+
 /* Botão de Entrar/Cadastrar */
 /* Botão de Entrar/Cadastrar igual ao Carrinho */
 #entrarBtn {
@@ -68,6 +77,8 @@ body {
     border: none;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.25s ease;
+     text-decoration: none;
+    text-align: center;
 }
 
 #entrarBtn:hover {
@@ -184,7 +195,7 @@ h2::after {
 #carrinhoBtn {
     margin-left: auto; /* garante que fique do lado direito */
 }
-.navbar .navbar-brand {
+.navbar-brand {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -232,3 +243,22 @@ footer {
     }
 }
 
+/* Responsividade extra */
+@media (min-width: 992px) {
+    .navbar-brand {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-brand {
+        position: static;
+        transform: none;
+        text-align: center;
+        width: 50%;
+        margin-bottom: 0.5rem;
+        margin-top: 7px;
+    }
+}

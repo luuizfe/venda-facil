@@ -11,19 +11,28 @@
 
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
-    <nav class="navbar shadow-sm">
-    <div class="container d-flex align-items-center position-relative">
-        <!-- Nome centralizado -->
-        <span class="navbar-brand fs-4">Perfumaria Gomes</span>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg shadow-sm">
+  <div class="container">
+    <!-- Nome centralizado -->
+    <a class="navbar-brand mx-auto" href="#">Perfumaria Gomes</a>
 
-        <!-- Botões à direita -->
-        <div class="d-flex ms-auto gap-2">
-            <button id="carrinhoBtn" class="btn btn-add-cart">🛒 Carrinho</button>
-            <button id="entrarBtn" class="btn btn-outline-dark"><a href="../html/login.html">Entrar / Cadastrar</a></button>
-        </div>
+    <!-- Botão Hamburger para telas pequenas -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Conteúdo colapsável -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+      <div class="d-flex flex-column flex-lg-row gap-2 mt-3 mt-lg-0">
+        <button id="carrinhoBtn" class="btn btn-add-cart w-100 w-lg-auto">🛒 Carrinho</button>
+        <a id="entrarBtn" class="btn btn-add-cart w-100 w-lg-auto" href="../html/login.html">Entrar / Cadastrar</a>
+      </div>
     </div>
+  </div>
 </nav>
+
 
 
 
@@ -64,6 +73,7 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

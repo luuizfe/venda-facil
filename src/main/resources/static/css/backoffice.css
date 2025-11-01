@@ -1,66 +1,183 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #fffafc;
-    color: #333;
+:root {
+    --rosa-claro: #f2d3da;
+    --rosa-fundo: #fffafc;
+    --rosa-borda: #f5d0d8;
+    --dourado: #FFD700;
+    --dourado-escuro: #e6c200;
+    --texto-principal: #4a3a40;
+    --texto-secundario: #555;
 }
 
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--rosa-fundo);
+    color: var(--texto-principal);
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== NAVBAR ===== */
 .navbar {
-    background-color: #f2d3da;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    background-color: var(--rosa-claro);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
+    border-radius: 0 0 15px 15px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .navbar-brand {
     font-weight: 600;
-    font-size: 1.2rem;
-    color: #4a3a40;
+    font-size: 1.5rem;
+    flex: 1;
 }
 
-.btn-add-cart {
-    background-color: #FFD700;
+/* Botão Sair */
+#logoutBtn {
+    background: linear-gradient(90deg, var(--dourado), #ffe566);
     border: none;
-    color: #4a3a40;
-    border-radius: 6px;
-    padding: 0.5rem 1.2rem;
-    transition: 0.2s;
+    color: var(--texto-principal);
+    border-radius: 12px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    cursor: pointer;
 }
 
-.btn-add-cart:hover {
-    background-color: #f05f26;
+#logoutBtn:hover {
+    background: linear-gradient(90deg, var(--dourado-escuro), var(--dourado));
     transform: scale(1.05);
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+/* ===== TÍTULOS ===== */
+h2, h3 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--texto-principal);
 }
 
-th {
-    background-color: #f8e7ea;
-    color: #4a3a40;
-    padding: 0.8rem;
+h2::after {
+    content: '';
+    display: block;
+    width: 30%;
+    height: 4px;
+    background: var(--dourado);
+    margin: 6px auto 0 auto;
+    border-radius: 5px;
+}
+
+/* ===== TABELA ===== */
+.table-responsive {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    min-width: 600px;
+}
+
+th, td {
+    padding: 0.75rem 1rem;
     text-align: left;
 }
 
+th {
+    background-color: var(--rosa-claro);
+    font-weight: 600;
+}
+
 td {
-    padding: 0.8rem;
-    border-top: 1px solid #f2d3da;
+    border-top: 1px solid var(--rosa-borda);
+    color: var(--texto-secundario);
+}
+
+/* Input de estoque */
+.input-estoque {
+    width: 60px;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--rosa-borda);
+    border-radius: 6px;
+}
+
+/* Botão excluir */
+.btn-excluir {
+    background-color: #e63946;
+    color: #fff;
+    border: none;
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.btn-excluir:hover {
+    background-color: #b02a36;
 }
 
 tr:hover {
     background-color: #fff3f6;
+    transition: 0.2s;
 }
 
+/* ===== FOOTER ===== */
 footer {
-    background-color: #f2d3da;
+    background-color: var(--rosa-claro);
+    color: var(--texto-principal);
     text-align: center;
     padding: 1rem;
-    color: #4a3a40;
     font-weight: 500;
+    border-radius: 12px 12px 0 0;
+    margin-top: auto;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    #logoutBtn {
+        width: 100%;
+    }
+
+    h2::after {
+        width: 50%;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+    .table {
+        font-size: 0.85rem;
+    }
+
+    .input-estoque {
+        width: 50px;
+    }
+
+    .btn-excluir {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.8rem;
+    }
 }
