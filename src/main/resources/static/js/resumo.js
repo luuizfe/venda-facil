@@ -45,12 +45,12 @@ function renderizarResumo() {
             const acao = e.target.dataset.action;
             const item = carrinho[idx];
 
-            if(acao === "mais") {
-                if(item.quantidade < item.estoque) item.quantidade++;
+            if (acao === "mais") {
+                if (item.quantidade < item.estoque) item.quantidade++;
                 else alert("Não é possível adicionar mais que o estoque.");
-            } else if(acao === "menos") {
+            } else if (acao === "menos") {
                 item.quantidade--;
-                if(item.quantidade <= 0) carrinho.splice(idx, 1);
+                if (item.quantidade <= 0) carrinho.splice(idx, 1);
             }
             salvarResumo();
         });
@@ -63,16 +63,41 @@ function salvarResumo() {
     renderizarResumo();
 }
 
-// Finalizar pedido
-finalizarPedido.addEventListener("click", () => {
-    if(carrinho.length === 0) {
+// --- Finalizar pedido ---
+finalizarPedido.addEventListener("click", async () => {
+    if (carrinho.length === 0) {
         alert("Seu carrinho está vazio!");
         return;
     }
-    alert("Pedido finalizado com sucesso!");
-    carrinho = [];
-    salvarResumo();
-    window.location.href = "index.html"; // volta para a home
+
+    const valorTotal = carrinho.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
+
+    // Monta objeto de pedido
+    const pedido = {
+        numeroPedido: Math.floor(Math.random() * 1000000), // exemplo de número gerado
+        valorPedido: valorTotal,
+        aceito: false,
+        produtos: carrinho
+    };
+
+    try {
+        const response = await fetch("http://localhost:8080/api/pedidos", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(pedido)
+        });
+
+        if (response.ok) {
+            alert("Pedido finalizado com sucesso!");
+            localStorage.removeItem("carrinho");
+            window.location.href = "index.html"; // volta para home
+        } else {
+            alert("Erro ao enviar pedido. Tente novamente.");
+        }
+    } catch (error) {
+        console.error("Erro ao enviar pedido:", error);
+        alert("Não foi possível finalizar o pedido. Verifique sua conexão.");
+    }
 });
 
 // Inicialização

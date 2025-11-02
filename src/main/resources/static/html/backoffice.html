@@ -10,6 +10,8 @@
 
 <nav class="navbar">
     <span class="navbar-brand">Backoffice</span>
+    <!-- Botão de Pedidos -->
+    <button id="pedidosBtn" class="btn btn-add-cart">Pedidos</button>
     <button id="logoutBtn" class="btn btn-add-cart">Sair</button>
 </nav>
 
@@ -37,6 +39,17 @@
     &copy; 2025 Perfumaria Gomes
 </footer>
 
+<<<<<<< Updated upstream
 <!--<script src="../js/backoffice.js"></script>-->
+=======
+<script src="../js/backoffice.js"></script>
+<script>
+    // Abrir página de pedidos
+    const pedidosBtn = document.getElementById("pedidosBtn");
+    pedidosBtn.addEventListener("click", () => {
+        window.location.href = "backoffice_pedidos.html"; // a página de pedidos do backoffice
+    });
+</script>
+>>>>>>> Stashed changes
 </body>
 </html>

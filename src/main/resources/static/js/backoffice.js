@@ -1,12 +1,17 @@
-const sessao = JSON.parse(localStorage.getItem("adminSession"));
-if(!sessao) window.location.href = "login.html";
-else document.getElementById("adminNome").textContent = sessao.nome;
+// --- Controle de sessão ---
+const sessao = JSON.parse(sessionStorage.getItem("adminLogado"));
+if (!sessao) {
+    window.location.href = "login.html";
+} else {
+    document.getElementById("adminNome").textContent = sessao.nome;
+}
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("adminSession");
+    sessionStorage.removeItem("adminLogado");
     window.location.href = "login.html";
 });
 
+// --- Carregamento de produtos ---
 const produtosTableBody = document.querySelector("#produtosTable tbody");
 
 async function carregarProdutos() {
@@ -28,12 +33,13 @@ async function carregarProdutos() {
         });
 
         ativarAcoesProdutos();
-    } catch(e) {
-        console.error(e);
+    } catch (e) {
+        console.error("Erro ao carregar produtos:", e);
     }
 }
 
 function ativarAcoesProdutos() {
+    // Atualizar estoque
     document.querySelectorAll(".input-estoque").forEach(input => {
         input.addEventListener("change", async (e) => {
             const id = e.target.dataset.id;
@@ -47,10 +53,13 @@ function ativarAcoesProdutos() {
         });
     });
 
+    // Excluir produto
     document.querySelectorAll(".btn-excluir").forEach(btn => {
         btn.addEventListener("click", async e => {
-            if(confirm("Deseja realmente excluir este produto?")) {
-                await fetch(`http://localhost:8080/api/produtos/${btn.dataset.id}`, { method: "DELETE" });
+            if (confirm("Deseja realmente excluir este produto?")) {
+                await fetch(`http://localhost:8080/api/produtos/${btn.dataset.id}`, {
+                    method: "DELETE"
+                });
                 carregarProdutos();
             }
         });
