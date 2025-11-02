@@ -72,7 +72,6 @@ finalizarPedido.addEventListener("click", async () => {
 
     const valorTotal = carrinho.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
 
-    // Monta objeto de pedido
     const pedido = {
         numeroPedido: Math.floor(Math.random() * 1000000), // exemplo de número gerado
         valorPedido: valorTotal,
@@ -81,6 +80,7 @@ finalizarPedido.addEventListener("click", async () => {
     };
 
     try {
+        // Envia para backend
         const response = await fetch("http://localhost:8080/api/pedidos", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -89,8 +89,25 @@ finalizarPedido.addEventListener("click", async () => {
 
         if (response.ok) {
             alert("Pedido finalizado com sucesso!");
+
+// --- Envia para WhatsApp de forma legível ---
+            let mensagem = `📦 *Resumo do Pedido* 📦\n\n`;
+            mensagem += `Número do Pedido: ${pedido.numeroPedido}\n\n`;
+            pedido.produtos.forEach((item, i) => {
+                mensagem += `${i+1}. ${item.nome}\n`;
+                mensagem += `   Quantidade: ${item.quantidade}\n`;
+                mensagem += `   Preço unitário: R$ ${item.preco.toFixed(2)}\n`;
+                mensagem += `   Subtotal: R$ ${(item.preco * item.quantidade).toFixed(2)}\n\n`;
+            });
+            mensagem += `💰 *Total: R$ ${pedido.valorPedido.toFixed(2)}*`;
+
+            const numeroWhats = "5511939084480";
+            const urlWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
+            window.open(urlWhats, "_blank");
+
+            // Limpa carrinho e volta para home
             localStorage.removeItem("carrinho");
-            window.location.href = "index.html"; // volta para home
+            window.location.href = "index.html";
         } else {
             alert("Erro ao enviar pedido. Tente novamente.");
         }
