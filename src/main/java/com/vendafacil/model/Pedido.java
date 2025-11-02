@@ -27,8 +27,8 @@ public class Pedido {
     private BigDecimal valorPedido;
 
     // Status: true = aceito, false = recusado, null = pendente
-    @Column
-    private Boolean aceito; // permite null
+    @Column(nullable = false)
+    private boolean aceito = false; // false = pendente
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;

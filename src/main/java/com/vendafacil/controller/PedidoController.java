@@ -35,7 +35,7 @@ public class PedidoController {
 
         pedido.setProdutos(produtosExistentes);
         pedido.setDataCriacao(LocalDateTime.now());
-        pedido.setAceito(null); // Pendente
+        pedido.setAceito(false); // Pendente
         Pedido novoPedido = pedidoRepository.save(pedido);
 
         return ResponseEntity.ok(novoPedido);
