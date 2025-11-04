@@ -36,6 +36,7 @@ public class Produto {
     @Min(value = 0, message = "O estoque não pode ser negativo.")
     private Integer estoque;
 
-    // Caminho da imagem principal do produto
+    @Column(name = "imagem_padrao", length = 255)
+    private String imagemPadrao;
 
 }

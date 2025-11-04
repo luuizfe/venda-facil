@@ -18,16 +18,12 @@ public class Administrador {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Getter
-    @Setter
     @NotBlank
     private String nome;
-    @Getter
-    @Setter
+
     @NotBlank
     private String email;
-    @Getter
-    @Setter
+
     @NotBlank
     private String senha;
 

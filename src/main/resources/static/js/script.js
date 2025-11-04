@@ -34,18 +34,26 @@ function renderizarProdutos() {
     produtosContainer.innerHTML = produtos.map((p, i) => `
         <div class="col">
             <div class="card h-100">
+
+                <img src="${p.imagemPadrao}" 
+                     class="card-img-top" 
+                     alt="Imagem do Produto" 
+                     style="height: 180px; object-fit: cover;">
+
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">${p.nome}</h5>
                     <p class="card-text">${p.descricao || "Sem descrição."}</p>
                     <p class="fw-bold">R$ ${p.preco.toFixed(2)}</p>
                     <p>Estoque: ${p.estoque}</p>
-                    <button class="btn btn-add-cart" data-index="${i}">Adicionar ao Carrinho</button>
+
+                    <button class="btn btn-add-cart mt-auto" data-index="${i}">
+                        Adicionar ao Carrinho
+                    </button>
                 </div>
             </div>
         </div>
     `).join("");
 
-    // Ativa os botões "Adicionar ao Carrinho"
     document.querySelectorAll(".btn-add-cart").forEach(btn => {
         btn.addEventListener("click", e => {
             const produto = produtos[e.target.dataset.index];
@@ -53,6 +61,7 @@ function renderizarProdutos() {
         });
     });
 }
+
 
 // 🔹 Adiciona um produto ao carrinho
 function adicionarAoCarrinho(produto) {

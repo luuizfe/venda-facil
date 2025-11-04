@@ -29,29 +29,36 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    // Salvar produto com múltiplas imagens
+    // Salvar produto com múltiplas imagens e definir a primeira como imagemPadrao
     public Produto salvarComImagens(Produto produto, MultipartFile[] imagens) {
         try {
-            // Caminho absoluto na raiz do projeto
+            // Caminho da pasta de uploads na raiz do projeto
             String uploadDir = System.getProperty("user.dir") + "/uploads/";
 
             // Criar pasta se não existir
             File dir = new File(uploadDir);
-            if (!dir.exists()) {
-                boolean criada = dir.mkdirs();
-                if (!criada) {
-                    throw new RuntimeException("Não foi possível criar a pasta para uploads");
-                }
+            if (!dir.exists() && !dir.mkdirs()) {
+                throw new RuntimeException("Não foi possível criar a pasta para uploads");
             }
 
-            // Salvar imagens
+            // Se o usuário enviou imagens
             if (imagens != null && imagens.length > 0) {
+
                 for (int i = 0; i < imagens.length; i++) {
                     MultipartFile file = imagens[i];
+
+                    // Gera um nome único
                     String nomeArquivo = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
+                    // Caminho físico no disco
                     File destino = new File(uploadDir + nomeArquivo);
                     file.transferTo(destino);
 
+                    // A primeira imagem enviada será a imagem principal
+                    if (i == 0) {
+                        // Caminho que o front deve usar
+                        produto.setImagemPadrao("/uploads/" + nomeArquivo);
+                    }
                 }
             }
 
