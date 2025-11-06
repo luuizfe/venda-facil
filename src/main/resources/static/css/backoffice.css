@@ -1,57 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 :root {
-    --rosa-claro: #f2d3da;
+    --rosa-claro: #ffdbe4;
     --rosa-fundo: #fffafc;
     --rosa-borda: #f5d0d8;
+    --rosa-hover: #fff3f6;
     --dourado: #FFD700;
     --dourado-escuro: #e6c200;
     --texto-principal: #4a3a40;
     --texto-secundario: #555;
 }
 
+/* ===== BASE ===== */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--rosa-fundo);
+    background: linear-gradient(135deg, var(--rosa-fundo) 0%, var(--rosa-claro) 100%);
     color: var(--texto-principal);
     margin: 0;
-    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ===== NAVBAR ===== */
 .navbar {
-    background-color: var(--rosa-claro);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: linear-gradient(90deg, #ffe4e1, #fff);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    border-radius: 0 0 15px 15px;
+    border-radius: 0 0 20px 20px;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
 .navbar-brand {
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    color: #b85c7a;
     flex: 1;
 }
 
 /* Botão Sair */
-#logoutBtn {
+#logoutBtn, #pedidosBtn {
     background: linear-gradient(90deg, var(--dourado), #ffe566);
     border: none;
     color: var(--texto-principal);
     border-radius: 12px;
-    padding: 0.5rem 1.5rem;
+    padding: 0.6rem 1.5rem;
     font-weight: 600;
-    transition: all 0.25s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
+    box-shadow: 0 3px 8px rgba(255, 215, 0, 0.3);
 }
 
-#logoutBtn:hover {
+#logoutBtn:hover, #pedidosBtn:hover {
     background: linear-gradient(90deg, var(--dourado-escuro), var(--dourado));
     transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.45);
+}
+
+/* ===== CONTEÚDO ===== */
+main {
+    flex: 1;
+    padding: 2rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* ===== TÍTULOS ===== */
@@ -59,42 +74,46 @@ h2, h3 {
     font-weight: 600;
     margin-bottom: 1rem;
     color: var(--texto-principal);
+    text-align: center;
 }
 
 h2::after {
     content: '';
     display: block;
-    width: 30%;
+    width: 120px;
     height: 4px;
     background: var(--dourado);
-    margin: 6px auto 0 auto;
-    border-radius: 5px;
+    margin: 8px auto 0;
+    border-radius: 6px;
 }
 
 /* ===== TABELA ===== */
 .table-responsive {
     overflow-x: auto;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.8rem;
 }
 
 .table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
-    border-radius: 12px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    min-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    min-width: 650px;
 }
 
 th, td {
-    padding: 0.75rem 1rem;
+    padding: 0.9rem 1.2rem;
     text-align: left;
+    vertical-align: middle;
 }
 
 th {
     background-color: var(--rosa-claro);
+    color: var(--texto-principal);
     font-weight: 600;
+    border-bottom: 2px solid var(--rosa-borda);
 }
 
 td {
@@ -102,33 +121,47 @@ td {
     color: var(--texto-secundario);
 }
 
-/* Input de estoque */
-.input-estoque {
-    width: 60px;
-    padding: 0.3rem 0.5rem;
-    border: 1px solid var(--rosa-borda);
-    border-radius: 6px;
+tr:hover {
+    background-color: var(--rosa-hover);
+    transition: 0.3s;
 }
 
-/* Botão excluir */
+/* ===== INPUT ESTOQUE ===== */
+.input-estoque {
+    width: 70px;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--rosa-borda);
+    border-radius: 8px;
+    background-color: #fffafc;
+    text-align: center;
+    font-weight: 500;
+    color: var(--texto-principal);
+    transition: 0.25s;
+}
+
+.input-estoque:focus {
+    border-color: var(--dourado);
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
+    outline: none;
+}
+
+/* ===== BOTÃO EXCLUIR ===== */
 .btn-excluir {
-    background-color: #e63946;
+    background: linear-gradient(90deg, #e63946, #ff6b6b);
     color: #fff;
     border: none;
-    padding: 0.3rem 0.8rem;
-    border-radius: 6px;
+    padding: 0.35rem 0.9rem;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 500;
-    transition: 0.2s;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 8px rgba(230, 57, 70, 0.3);
 }
 
 .btn-excluir:hover {
-    background-color: #b02a36;
-}
-
-tr:hover {
-    background-color: #fff3f6;
-    transition: 0.2s;
+    background: linear-gradient(90deg, #b02a36, #e63946);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
 }
 
 /* ===== FOOTER ===== */
@@ -138,46 +171,85 @@ footer {
     text-align: center;
     padding: 1rem;
     font-weight: 500;
-    border-radius: 12px 12px 0 0;
-    margin-top: auto;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== ANIMAÇÃO ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ===== RESPONSIVIDADE ===== */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .navbar {
         flex-direction: column;
         align-items: flex-start;
-        padding: 1rem;
+        padding: 1.2rem;
+        border-radius: 0 0 18px 18px;
     }
 
-    #logoutBtn {
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+
+    #logoutBtn, #pedidosBtn {
         width: 100%;
+        padding: 0.6rem;
+    }
+
+    main {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.9rem;
+        min-width: 500px;
+    }
+
+    h2 {
+        font-size: 1.4rem;
     }
 
     h2::after {
-        width: 50%;
-    }
-
-    .table {
-        font-size: 0.9rem;
+        width: 90px;
     }
 }
 
 @media (max-width: 480px) {
+    .navbar {
+        padding: 0.8rem 1rem;
+    }
+
     .navbar-brand {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .table {
         font-size: 0.85rem;
+        min-width: 400px;
     }
 
     .input-estoque {
         width: 50px;
+        font-size: 0.85rem;
     }
 
     .btn-excluir {
         padding: 0.25rem 0.6rem;
         font-size: 0.8rem;
+    }
+
+    h2::after {
+        width: 70px;
     }
 }

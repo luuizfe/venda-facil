@@ -148,6 +148,30 @@ tr:hover {
     color: #822727;
 }
 
+/* ===== BOTÃO VOLTAR ===== */
+        .btn-voltar {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            background: linear-gradient(90deg, var(--dourado), #ffe566);
+            color: var(--texto-principal);
+            font-weight: 500;
+            border: none;
+            border-radius: 12px;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            font-size: 0.95rem;
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-voltar:hover {
+            background: linear-gradient(90deg, var(--dourado-escuro), var(--dourado));
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
 /* ===== ANIMAÇÃO ===== */
 @keyframes fadeIn {
     from {
@@ -179,7 +203,15 @@ tr:hover {
         padding: 0.3rem 0.8rem;
         font-size: 0.85rem;
     }
+
+    .btn-voltar {
+                top: 15px;
+                right: 20px;
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
 }
+
 
 @media (max-width: 480px) {
     h1 {
