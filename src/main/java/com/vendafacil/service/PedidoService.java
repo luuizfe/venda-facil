@@ -1,6 +1,7 @@
 package com.vendafacil.service;
 
 import com.vendafacil.model.Pedido;
+import com.vendafacil.model.StatusPedido;
 import com.vendafacil.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class PedidoService {
     // Criar pedido
     public Pedido criarPedido(Pedido pedido) {
         pedido.setDataCriacao(LocalDateTime.now());
-        pedido.setAceito(false); // padrão: ainda não aceito
+        pedido.setStatus(StatusPedido.PENDENTE); // padrão: ainda não aceito
         return pedidoRepository.save(pedido);
     }
 

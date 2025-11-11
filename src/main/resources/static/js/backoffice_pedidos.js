@@ -3,26 +3,38 @@ const pedidosTableBody = document.querySelector("#pedidosTable tbody");
 // Carregar todos os pedidos
 async function carregarPedidos() {
     try {
-        const res = await fetch("http://localhost:8080/api/pedidos");
+        const res = await fetch("http://localhost:8080/api/pedidos"); // ajuste se o endpoint tiver /api
         const pedidos = await res.json();
 
         pedidosTableBody.innerHTML = "";
 
         pedidos.forEach(p => {
             const tr = document.createElement("tr");
+
+            // Converte o enum para texto amigável
+            let statusTexto = "";
+            switch (p.status) {
+                case "ACEITO":
+                    statusTexto = "Aceito";
+                    break;
+                case "RECUSADO":
+                    statusTexto = "Recusado";
+                    break;
+                default:
+                    statusTexto = "Pendente";
+            }
+
             tr.innerHTML = `
                 <td>${p.idPedido}</td>
                 <td>${p.numeroPedido}</td>
                 <td>R$ ${p.valorPedido.toFixed(2)}</td>
                 <td>${new Date(p.dataCriacao).toLocaleString()}</td>
-                <td>${p.aceito === null ? "Pendente" : (p.aceito ? "Aceito" : "Recusado")}</td>
+                <td>${statusTexto}</td>
+                <td>${p.produtos.map(prod => prod.nome).join(", ")}</td>
                 <td>
-                    ${p.produtos.map(prod => prod.nome).join(", ")}
-                </td>
-                <td>
-                    ${p.aceito === null ? `
-                    <button class="btn btn-success btn-sm btn-aceitar" data-id="${p.idPedido}">Aceitar</button>
-                    <button class="btn btn-danger btn-sm btn-recusar ms-1" data-id="${p.idPedido}">Recusar</button>
+                    ${p.status === "PENDENTE" ? `
+                        <button class="btn btn-success btn-sm btn-aceitar" data-id="${p.idPedido}">Aceitar</button>
+                        <button class="btn btn-danger btn-sm btn-recusar ms-1" data-id="${p.idPedido}">Recusar</button>
                     ` : ""}
                 </td>
             `;
@@ -40,18 +52,34 @@ function ativarAcoes() {
     document.querySelectorAll(".btn-aceitar").forEach(btn => {
         btn.addEventListener("click", async () => {
             const id = btn.dataset.id;
-            await fetch(`http://localhost:8080/api/pedidos/${id}/aceitar`, { method: "POST" });
-            carregarPedidos();
+            await atualizarStatus(id, "ACEITO");
         });
     });
 
     document.querySelectorAll(".btn-recusar").forEach(btn => {
         btn.addEventListener("click", async () => {
             const id = btn.dataset.id;
-            await fetch(`http://localhost:8080/api/pedidos/${id}/recusar`, { method: "POST" });
-            carregarPedidos();
+            await atualizarStatus(id, "RECUSADO");
         });
     });
+}
+
+// Função genérica para atualizar o status
+async function atualizarStatus(id, novoStatus) {
+    try {
+        const res = await fetch(`http://localhost:8080/api/pedidos/${id}/status?status=${novoStatus}`, {
+            method: "PUT"
+        });
+
+        if (!res.ok) {
+            console.error(`Erro ao atualizar status do pedido ${id}:`, res.status);
+            return;
+        }
+
+        await carregarPedidos();
+    } catch (e) {
+        console.error("Erro ao atualizar status:", e);
+    }
 }
 
 // Inicialização

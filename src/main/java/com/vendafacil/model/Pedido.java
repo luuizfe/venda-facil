@@ -26,9 +26,10 @@ public class Pedido {
     @Column(nullable = false)
     private BigDecimal valorPedido;
 
-    // Status: true = aceito, false = recusado, null = pendente
+    // Status do pedido (PENDENTE, ACEITO, RECUSADO)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private boolean aceito = false; // false = pendente
+    private StatusPedido status = StatusPedido.PENDENTE;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
@@ -45,5 +46,8 @@ public class Pedido {
     @PrePersist
     protected void onCreate() {
         this.dataCriacao = LocalDateTime.now();
+        if (status == null) {
+            this.status = StatusPedido.PENDENTE;
+        }
     }
 }
