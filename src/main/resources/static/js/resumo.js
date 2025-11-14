@@ -75,7 +75,6 @@ finalizarPedido.addEventListener("click", async () => {
     const pedido = {
         numeroPedido: Math.floor(Math.random() * 1000000), // exemplo de número gerado
         valorPedido: valorTotal,
-        aceito: false,
         produtos: carrinho
     };
 
@@ -100,6 +99,10 @@ finalizarPedido.addEventListener("click", async () => {
                 mensagem += `   Subtotal: R$ ${(item.preco * item.quantidade).toFixed(2)}\n\n`;
             });
             mensagem += `💰 *Total: R$ ${pedido.valorPedido.toFixed(2)}*`;
+
+            mensagem +=`\n\nNome: ${document.getElementById("nome").value}
+                        \nNumeros de contato: ${document.getElementById("number").value}
+                        \nObservações: ${document.getElementById("obs").value}`;
 
             const numeroWhats = "5511939084480";
             const urlWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
