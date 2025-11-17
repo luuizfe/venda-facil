@@ -71,10 +71,13 @@ function renderizarProdutosBuscados() {
     }
     produtosContainer.innerHTML = "";
     produtos.map((p, i) => {
+        const termo = document.getElementById("searchInput").value.trim().toLowerCase();
+
         if (
-            p.nome.includes(document.getElementById("searchInput").value.trim()) ||
-            p.descricao.includes(document.getElementById("searchInput").value.trim())
-        ) {
+            p.nome.toLowerCase().includes(termo) ||
+            (p.descricao && p.descricao.toLowerCase().includes(termo))
+        )
+        {
             produtosContainer.innerHTML =
                 produtosContainer.innerHTML +
                 `
@@ -196,3 +199,8 @@ document.addEventListener("DOMContentLoaded", carregarProdutos);
 
 //Gatilho da barra de busca
 searchButton.addEventListener("click", renderizarProdutosBuscados);
+
+// 🔹 Busca em tempo real (sem botão)
+searchBar.addEventListener("keyup", () => {
+    renderizarProdutosBuscados();
+});

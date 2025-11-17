@@ -35,12 +35,20 @@
 
 
 
-<!--Barra de busca-->
-<div>
-    <label>Buscar Produto: </label>
-    <input type="text" name="searchInput" id="searchInput">
-    <butt id="searchButton">Buscar</butt>
+<!-- Barra de busca -->
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <label for="searchInput" class="form-label fw-semibold">Buscar Produto:</label>
+
+            <div class="input-group">
+                <input type="text" class="form-control" id="searchInput" placeholder="Digite o nome do produto">
+                <button class="btn btn-primary" id="searchButton">Buscar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
     <!-- Conteúdo principal -->
     <main class="container my-5 flex-grow-1">
         <h2 class="text-center mb-4">Lista de Produtos</h2>
