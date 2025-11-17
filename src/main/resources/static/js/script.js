@@ -75,8 +75,11 @@ function renderizarProdutosBuscados() {
 
         if (
             p.nome.toLowerCase().includes(termo) ||
-            (p.descricao && p.descricao.toLowerCase().includes(termo))
+            (p.descricao && p.descricao.toLowerCase().includes(termo)) ||
+            p.marca.toLowerCase().includes(termo) ||
+            p.preco.toString().includes(termo)
         )
+
         {
             produtosContainer.innerHTML =
                 produtosContainer.innerHTML +
