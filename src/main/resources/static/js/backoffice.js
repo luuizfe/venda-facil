@@ -1,17 +1,56 @@
-// --- Controle de sessão ---
+// =====================================================
+// 🔒 1. Validar acesso via token
+// =====================================================
+async function validarAcessoBackoffice() {
+    const token = sessionStorage.getItem("tokenAdmin");
+
+    if (!token) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:8080/api/administradores/login/validar", {
+            method: "GET",
+            headers: {
+                "X-Admin-Auth": token
+            }
+        });
+
+        if (!response.ok) {
+            sessionStorage.clear();
+            window.location.href = "login.html";
+        }
+
+    } catch (erro) {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+    }
+}
+validarAcessoBackoffice();
+
+// =====================================================
+// 👤 2. Pegar dados do admin logado
+// =====================================================
+
 const sessao = JSON.parse(sessionStorage.getItem("adminLogado"));
-if (!sessao) {
-    window.location.href = "login.html";
-} else {
+if (sessao) {
     document.getElementById("adminNome").textContent = sessao.nome;
 }
 
+// =====================================================
+// 🚪 3. Logout completo
+// =====================================================
 document.getElementById("logoutBtn").addEventListener("click", () => {
     sessionStorage.removeItem("adminLogado");
+    sessionStorage.removeItem("tokenAdmin");
     window.location.href = "login.html";
 });
 
-// --- Carregamento de produtos ---
+// =====================================================
+// 📦 4. Carregamento de produtos
+// =====================================================
+
 const produtosTableBody = document.querySelector("#produtosTable tbody");
 
 async function carregarProdutos() {
@@ -36,7 +75,6 @@ async function carregarProdutos() {
                         class="input-estoque">
                 </td>
 
-                <!-- STATUS COM SELECT (visual antigo restaurado) -->
                 <td>
                     <select class="select-status" data-id="${p.id}">
                         <option value="DISPONIVEL" ${p.status === "DISPONIVEL" ? "selected" : ""}>DISPONÍVEL</option>

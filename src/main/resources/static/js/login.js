@@ -14,11 +14,14 @@ loginForm.addEventListener("submit", async (e) => {
             body: JSON.stringify({ email, senha })
         });
 
-        if(response.ok){
-            const admin = await response.json();
-            // Salva no sessionStorage para controle de acesso ao backoffice
-            sessionStorage.setItem("adminLogado", JSON.stringify(admin));
-            window.location.href = "backoffice.html"; // redireciona
+        if (response.ok) {
+            const data = await response.json();
+
+            // Salva admin e token
+            sessionStorage.setItem("adminLogado", JSON.stringify(data.admin));
+            sessionStorage.setItem("tokenAdmin", data.token);
+
+            window.location.href = "backoffice.html";
         } else {
             erroLogin.classList.remove("d-none");
         }

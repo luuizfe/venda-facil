@@ -7,6 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @Service
 public class AdministradorService {
@@ -16,6 +19,9 @@ public class AdministradorService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    // Mapa token -> adminId (simples, em memória)
+    private final ConcurrentMap<String, Integer> tokenStore = new ConcurrentHashMap<>();
 
     public Administrador criarAdm(Administrador administrador) {
         // Criptografa a senha antes de salvar no banco
@@ -53,5 +59,28 @@ public class AdministradorService {
             }
         }
         return null;
+    }
+
+    /* ---------------------------
+       Token handling simples
+       --------------------------- */
+
+    public String criarTokenParaAdmin(Administrador admin) {
+        String token = UUID.randomUUID().toString();
+        tokenStore.put(token, admin.getId()); // assume getId() existe e é Integer/Int
+        return token;
+    }
+
+    public boolean validarToken(String token) {
+        if (token == null) return false;
+        return tokenStore.containsKey(token);
+    }
+
+    public Integer getAdminIdPorToken(String token) {
+        return tokenStore.get(token);
+    }
+
+    public void revogarToken(String token) {
+        if (token != null) tokenStore.remove(token);
     }
 }

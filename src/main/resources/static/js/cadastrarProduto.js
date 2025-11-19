@@ -1,3 +1,33 @@
+async function validarAcessoBackoffice() {
+    const token = sessionStorage.getItem("tokenAdmin");
+
+    if (!token) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:8080/api/administradores/login/validar", {
+            method: "GET",
+            headers: {
+                "X-Admin-Auth": token
+            }
+        });
+
+        if (!response.ok) {
+            sessionStorage.clear();
+            window.location.href = "login.html";
+        }
+
+    } catch (erro) {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+    }
+}
+validarAcessoBackoffice();
+
+
+
 const form = document.getElementById('produtoForm');
 
 form.addEventListener('submit', async (e) => {
