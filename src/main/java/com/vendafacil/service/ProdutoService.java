@@ -79,6 +79,7 @@ public class ProdutoService {
                     p.setPreco(produtoAtualizado.getPreco());
                     p.setEstoque(produtoAtualizado.getEstoque());
                     p.setMarca(produtoAtualizado.getMarca());
+                    p.setStatus(produtoAtualizado.getStatus());
                     // Caso queira atualizar a imagem padrão, pode adicionar lógica aqui
                     return produtoRepository.save(p);
                 }).orElseThrow(() -> new RuntimeException("Produto não encontrado"));

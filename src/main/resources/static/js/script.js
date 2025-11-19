@@ -33,29 +33,45 @@ async function carregarProdutos() {
 
 // 🔹 Renderiza os cards de produtos
 function renderizarProdutos() {
-    produtosContainer.innerHTML = produtos.map((p, i) => `
-        <div class="col">
-            <div class="card h-100">
+    produtosContainer.innerHTML = produtos.map((p, i) => {
 
-                <img src="${p.imagemPadrao}" 
-                     class="card-img-top" 
-                     alt="Imagem do Produto" 
-                     style="height: 180px; object-fit: cover;">
+        const disponivel = p.status === "DISPONIVEL";
 
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">${p.nome}</h5>
-                    <p class="card-text">${p.descricao || "Sem descrição."}</p>
-                    <p class="fw-bold">R$ ${p.preco.toFixed(2)}</p>
-                    <p>Estoque: ${p.estoque}</p>
+        return `
+            <div class="col">
+                <div class="card h-100">
 
-                    <button class="btn btn-add-cart mt-auto" data-index="${i}">
-                        Adicionar ao Carrinho
-                    </button>
+                    <img src="${p.imagemPadrao}" 
+                         class="card-img-top" 
+                         alt="Imagem do Produto" 
+                         style="height: 180px; object-fit: cover;">
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">${p.nome}</h5>
+                        <p class="card-text">${p.descricao || "Sem descrição."}</p>
+                        <p class="fw-bold">R$ ${p.preco.toFixed(2)}</p>
+                        <p>Estoque: ${p.estoque}</p>
+
+                        ${
+            disponivel
+                ? `
+                                <button class="btn btn-add-cart mt-auto" data-index="${i}">
+                                    Adicionar ao Carrinho
+                                </button>
+                              `
+                : `
+                                <span class="text-danger fw-bold mt-auto">
+                                    Produto Indisponível
+                                </span>
+                              `
+        }
+                    </div>
                 </div>
             </div>
-        </div>
-    `).join("");
+        `;
+    }).join("");
 
+    // Só adiciona eventos nos que realmente possuem o botão
     document.querySelectorAll(".btn-add-cart").forEach(btn => {
         btn.addEventListener("click", e => {
             const produto = produtos[e.target.dataset.index];

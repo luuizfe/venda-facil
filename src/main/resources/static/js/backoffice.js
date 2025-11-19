@@ -22,13 +22,34 @@ async function carregarProdutos() {
         produtosTableBody.innerHTML = "";
         produtos.forEach(p => {
             const tr = document.createElement("tr");
+
             tr.innerHTML = `
-                <td>${p.nome}</td>
-                <td>${p.marca}</td>
-                <td>R$ ${p.preco.toFixed(2)}</td>
-                <td><input type="number" value="${p.estoque}" min="0" data-id="${p.id}" class="input-estoque"></td>
-                <td><button class="btn-excluir" data-id="${p.id}">Excluir</button></td>
+                <td class="td-nome" data-id="${p.id}">${p.nome}</td>
+                <td class="td-marca" data-id="${p.id}">${p.marca}</td>
+                <td class="td-preco" data-id="${p.id}">R$ ${p.preco.toFixed(2)}</td>
+
+                <td>
+                    <input type="number" 
+                        value="${p.estoque}" 
+                        min="0" 
+                        data-id="${p.id}"
+                        class="input-estoque">
+                </td>
+
+                <!-- STATUS COM SELECT (visual antigo restaurado) -->
+                <td>
+                    <select class="select-status" data-id="${p.id}">
+                        <option value="DISPONIVEL" ${p.status === "DISPONIVEL" ? "selected" : ""}>DISPONÍVEL</option>
+                        <option value="INDISPONIVEL" ${p.status === "INDISPONIVEL" ? "selected" : ""}>INDISPONÍVEL</option>
+                    </select>
+                </td>
+
+                <td>
+                    <button class="btn-salvar" data-id="${p.id}">Salvar</button>
+                    <button class="btn-excluir" data-id="${p.id}">Excluir</button>
+                </td>
             `;
+
             produtosTableBody.appendChild(tr);
         });
 
@@ -39,23 +60,35 @@ async function carregarProdutos() {
 }
 
 function ativarAcoesProdutos() {
-    // Atualizar estoque
-    document.querySelectorAll(".input-estoque").forEach(input => {
-        input.addEventListener("change", async (e) => {
-            const id = e.target.dataset.id;
-            const estoque = parseInt(e.target.value);
+
+    // SALVAR ALTERAÇÕES
+    document.querySelectorAll(".btn-salvar").forEach(btn => {
+        btn.addEventListener("click", async () => {
+            const id = btn.dataset.id;
+
+            const nome = document.querySelector(`.td-nome[data-id="${id}"]`).textContent;
+            const marca = document.querySelector(`.td-marca[data-id="${id}"]`).textContent;
+            const precoTexto = document.querySelector(`.td-preco[data-id="${id}"]`).textContent.replace("R$", "").trim();
+            const preco = parseFloat(precoTexto);
+            const estoque = parseInt(document.querySelector(`.input-estoque[data-id="${id}"]`).value);
+            const status = document.querySelector(`.select-status[data-id="${id}"]`).value;
+
+            const body = { nome, marca, preco, estoque, status };
+
             await fetch(`http://localhost:8080/api/produtos/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ estoque })
+                body: JSON.stringify(body)
             });
+
+            alert("Produto atualizado!");
             carregarProdutos();
         });
     });
 
-    // Excluir produto
+    // EXCLUIR PRODUTO
     document.querySelectorAll(".btn-excluir").forEach(btn => {
-        btn.addEventListener("click", async e => {
+        btn.addEventListener("click", async () => {
             if (confirm("Deseja realmente excluir este produto?")) {
                 await fetch(`http://localhost:8080/api/produtos/${btn.dataset.id}`, {
                     method: "DELETE"
@@ -64,8 +97,6 @@ function ativarAcoesProdutos() {
             }
         });
     });
-
-    
 }
 
 carregarProdutos();

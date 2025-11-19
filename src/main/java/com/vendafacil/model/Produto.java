@@ -39,4 +39,9 @@ public class Produto {
     @Column(name = "imagem_padrao", length = 255)
     private String imagemPadrao;
 
+    // Status do produto (DISPONÍVEL, INDISPONÍVEL)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusProduto status = StatusProduto.DISPONIVEL;
+
 }

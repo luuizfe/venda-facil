@@ -253,3 +253,37 @@ footer {
         width: 70px;
     }
 }
+/* ===== BOTÃO SALVAR ===== */
+.btn-salvar {
+    background: linear-gradient(90deg, #FFD700, #ffe566);
+    color: var(--texto-principal);
+    border: none;
+    padding: 0.35rem 0.9rem;
+    margin-right: 6px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 8px rgba(255, 215, 0, 0.3);
+}
+
+.btn-salvar:hover {
+    background: linear-gradient(90deg, #e6c200, #FFD700);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.45);
+}
+
+/* ===== COLUNA DE AÇÕES (SALVAR + EXCLUIR) ===== */
+td .btn-salvar,
+td .btn-excluir {
+    display: inline-block;
+}
+
+/* Evita quebra feia em telas pequenas */
+@media (max-width: 480px) {
+    td .btn-salvar,
+    td .btn-excluir {
+        margin-bottom: 4px;
+        width: 100%;
+    }
+}
