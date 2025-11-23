@@ -69,6 +69,11 @@ finalizarPedido.addEventListener("click", async () => {
         alert("Seu carrinho está vazio!");
         return;
     }
+    if(document.getElementById("nome").value == '' ||
+       document.getElementById("number").value == ''){
+        alert("Preencha seus dados no formulario!");
+        return;
+    }
 
     const valorTotal = carrinho.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
 
