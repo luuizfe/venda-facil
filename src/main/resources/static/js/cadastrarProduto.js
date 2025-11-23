@@ -57,7 +57,8 @@ form.addEventListener('submit', async (e) => {
         });
         if (response.ok) {
             alert('Produto cadastrado com sucesso!');
-            window.location.href = '/html/backoffice.html';
+            window.location.reload();
+
         } else {
             alert('Erro ao cadastrar produto!');
         }
