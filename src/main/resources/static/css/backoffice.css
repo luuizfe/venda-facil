@@ -43,7 +43,7 @@ body {
 }
 
 /* Botão Sair */
-#logoutBtn, #pedidosBtn {
+#logoutBtn, #pedidosBtn, #cadastrarBtn {
     background: linear-gradient(90deg, var(--dourado), #ffe566);
     border: none;
     color: var(--texto-principal);
@@ -55,7 +55,7 @@ body {
     box-shadow: 0 3px 8px rgba(255, 215, 0, 0.3);
 }
 
-#logoutBtn:hover, #pedidosBtn:hover {
+#logoutBtn:hover, #pedidosBtn:hover, #cadastrarBtn:hover {
     background: linear-gradient(90deg, var(--dourado-escuro), var(--dourado));
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(255, 215, 0, 0.45);
@@ -200,7 +200,7 @@ footer {
         font-size: 1.4rem;
     }
 
-    #logoutBtn, #pedidosBtn {
+    #logoutBtn, #pedidosBtn, #cadastrarBtn {
         width: 100%;
         padding: 0.6rem;
     }
