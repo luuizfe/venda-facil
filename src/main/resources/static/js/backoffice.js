@@ -52,6 +52,37 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 // =====================================================
 
 const produtosTableBody = document.querySelector("#produtosTable tbody");
+const searchBar = document.getElementById("searchInput");
+const searchButton = document.getElementById("searchButton");
+
+// =====================================================
+// 🔍 FILTRAR PRODUTOS DA TABELA
+// =====================================================
+
+function renderizarProdutosBuscados() {
+    const termo = searchBar.value.trim().toLowerCase();
+
+    // Selecionar todas as linhas da tabela
+    const linhas = document.querySelectorAll("#produtosTable tbody tr");
+
+    linhas.forEach(linha => {
+        const nome = linha.querySelector(".td-nome").textContent.toLowerCase();
+        const marca = linha.querySelector(".td-marca").textContent.toLowerCase();
+        const preco = linha.querySelector(".td-preco").textContent
+            .replace("R$", "")
+            .trim()
+            .toLowerCase();
+
+        const corresponde =
+            nome.includes(termo) ||
+            marca.includes(termo) ||
+            preco.includes(termo);
+
+        // Exibir ou ocultar linha
+        linha.style.display = corresponde ? "" : "none";
+    });
+}
+
 
 async function carregarProdutos() {
     try {
@@ -97,6 +128,13 @@ async function carregarProdutos() {
     }
 }
 
+// Clique no botão
+searchButton.addEventListener("click", renderizarProdutosBuscados);
+
+// Digitação em tempo real
+searchBar.addEventListener("keyup", renderizarProdutosBuscados);
+
+
 function ativarAcoesProdutos() {
 
     // SALVAR ALTERAÇÕES
@@ -136,5 +174,7 @@ function ativarAcoesProdutos() {
         });
     });
 }
+
+
 
 carregarProdutos();
