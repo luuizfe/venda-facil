@@ -5,42 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resumo do Pedido - Perfumaria Gomes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/resumo.css">
 </head>
-<body class="d-flex flex-column min-vh-100">
+
+<body class="d-flex flex-column min-vh-100 bg-light">
 
 <!-- Navbar -->
-<nav class="navbar" style="background-color:#f2d3da;">
+<nav class="navbar shadow-sm" style="background-color:#f2d3da;">
     <div class="container-fluid justify-content-center">
-        <a href="../html/index.html"><span class="navbar-brand mb-0 fs-4">Perfumaria Gomes - Resumo do Pedido</span></a>
+        <a href="../html/index.html" class="text-dark text-decoration-none fs-4 fw-semibold">
+           Resumo do Pedido
+        </a>
     </div>
 </nav>
 
 <!-- Conteúdo -->
-<main class="container my-4 flex-grow-1">
-    <h2 class="mb-4 text-center">Resumo da Compra</h2>
+<main class="container my-5 flex-grow-1">
 
-    <div id="resumoItens" class="mb-4">
-        <!-- Itens do carrinho renderizados via JS -->
+    <h2 class="mb-4 text-center fw-bold">Resumo da Compra</h2>
+
+    <!-- Card dos itens -->
+    <div id="resumoItens" class="mb-4 p-3 border rounded bg-white shadow-sm">
+        <!-- Itens do carrinho via JS -->
     </div>
 
-    <div>
-        <label>Nome: </label>
-        <input type="text" id="nome">
-        <label>Numeros de contato: </label>
-        <input type="text" id="number">
-        <label>Observações: </label>
-        <input type="text" id="obs">
+    <!-- Card do formulário -->
+    <div class="p-4 border rounded bg-white shadow-sm mb-4">
+        <h5 class="fw-semibold mb-3">Dados para Finalização</h5>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Nome</label>
+                <input type="text" id="nome" class="form-control" placeholder="Seu nome completo">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Número de contato</label>
+                <input type="text" id="number" class="form-control" placeholder="(DDD) 90000-0000">
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Observações</label>
+                <textarea id="obs" class="form-control" rows="3" placeholder="Alguma observação importante?"></textarea>
+            </div>
+        </div>
     </div>
 
+    <!-- Total + Botão -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4>Total: R$ <span id="totalResumo">0.00</span></h4>
-        <button id="finalizarPedido" class="btn btn-add-cart">Finalizar Pedido</button>
+        <h4 class="fw-semibold">Total: R$ <span id="totalResumo">0.00</span></h4>
+        <button id="finalizarPedido" class="btn btn-primary px-4 py-2 fw-semibold" style="background-color:#d67ba3; border:none;">
+            Finalizar Pedido
+        </button>
     </div>
+
 </main>
 
 <!-- Footer -->
-<footer class="text-white text-center py-3 mt-auto" style="background-color:#f2d3da;">
+<footer class="text-center py-3 mt-auto text-dark" style="background-color:#f2d3da;">
     <div class="container">
         <p class="mb-1">&copy; 2025 Perfumaria Gomes</p>
         <small>Desenvolvido com ❤️ por Venda Fácil</small>
